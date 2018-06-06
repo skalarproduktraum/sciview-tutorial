@@ -30,6 +30,8 @@ import sc.iview.commands.demo.GameOfLife3D;
         @Menu( label = "Mesh Overlay" ) }, description = "Demos overlaying meshes and volumes", headless = false, type = Command.class )
 public class OverlayPlugin< T extends RealType< T > & NativeType< T >> implements Command {
 
+  // the following parameters automatically connect the services we need
+  // ImageJ2 ftw!
   @Parameter
   private SciView sciView;
 
@@ -49,6 +51,7 @@ public class OverlayPlugin< T extends RealType< T > & NativeType< T >> implement
   public void run() {
     if( !ui.isVisible() ) ui.showUI();
 
+    // camera setup
     sciView.getCamera().setPosition( new GLVector( 10.0f, 0.0f, 15.0f ) );
     sciView.getCamera().setTargeted( true );
     sciView.getCamera().setTarget( new GLVector( 0, 0, 0 ) );
@@ -56,28 +59,37 @@ public class OverlayPlugin< T extends RealType< T > & NativeType< T >> implement
     sciView.getCamera().setNeedsUpdate( true );
 
     try {
+      // let's try to get a reference to the GameOfLife3D demo
       CommandInfo cmdInfo = cmds.getCommand(sc.iview.commands.demo.GameOfLife3D.class);
       GameOfLife3D gol = (GameOfLife3D)cmdInfo.createInstance();
 
+      // and run that demo programmatically. we need to pass it a reference to
+      // our SciView instance, and hand over the current context
       gol.setContext(ui.context());
       gol.setInput("sciView", sciView);
       gol.run();
 
       int i = 0;
       while(i < 20) {
+        // first, we threshold the image
         Img<BitType> bitImg = (Img<BitType>) ops.threshold().apply(gol.getImg(), new UnsignedByteType(128));
+        // and then create a mesh from the binary image, via the marching cubes algorithm
         Mesh mesh = ops.geom().marchingCubes(bitImg);
+        // finally, we add the meshed volume to our scene
         Node n = sciView.addMesh(mesh);
 
-        i++;
+        // sleep for a bit so that the changes are not too fast
         try {
           Thread.sleep(5000);
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
 
+        // let's hide the old mesh
         n.setVisible(false);
+        // and iterate the game of life another round
         gol.iterate();
+        i++;
       }
 
     } catch (InstantiableException e) {
