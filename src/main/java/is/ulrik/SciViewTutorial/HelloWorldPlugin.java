@@ -25,7 +25,7 @@ import sc.iview.SciViewService;
  */
 @Plugin( menu = { @Menu( label = "Plugins" ),
         @Menu( label = "SciView Tutorial" ),
-        @Menu( label = "Hello World" ) }, description = "Hello SciView.", headless = false, type = Command.class )
+        @Menu( label = "Hello World" ) }, description = "Simple plugin showing programmatic opening of volume data", headless = false, type = Command.class )
 public class HelloWorldPlugin< T extends RealType< T > & NativeType< T >> implements Command {
 
   @Parameter( label = "3D ImgPlus to be shown." )
