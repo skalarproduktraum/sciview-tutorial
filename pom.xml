@@ -57,8 +57,10 @@
 
     <contributors>
         <contributor>
-            <name>none</name>
-        </contributor>
+			<name>Florian Jug</name>
+			<url>http://imagej.net/User:Jug</url>
+			<properties><id>fjug</id></properties>
+		</contributor>
     </contributors>
 
     <repositories>
