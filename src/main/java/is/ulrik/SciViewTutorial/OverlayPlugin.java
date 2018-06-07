@@ -1,5 +1,13 @@
 package is.ulrik.SciViewTutorial;
 
+import org.scijava.InstantiableException;
+import org.scijava.command.Command;
+import org.scijava.command.CommandInfo;
+import org.scijava.command.CommandService;
+import org.scijava.plugin.Parameter;
+import org.scijava.plugin.Plugin;
+import org.scijava.ui.UIService;
+
 import cleargl.GLVector;
 import graphics.scenery.Node;
 import net.imagej.mesh.Mesh;
@@ -9,14 +17,6 @@ import net.imglib2.type.NativeType;
 import net.imglib2.type.logic.BitType;
 import net.imglib2.type.numeric.RealType;
 import net.imglib2.type.numeric.integer.UnsignedByteType;
-import org.scijava.InstantiableException;
-import org.scijava.command.Command;
-import org.scijava.command.CommandInfo;
-import org.scijava.command.CommandService;
-import org.scijava.plugin.Menu;
-import org.scijava.plugin.Parameter;
-import org.scijava.plugin.Plugin;
-import org.scijava.ui.UIService;
 import sc.iview.SciView;
 import sc.iview.commands.demo.GameOfLife3D;
 
@@ -25,9 +25,7 @@ import sc.iview.commands.demo.GameOfLife3D;
  *
  * @author Ulrik Günther <hello@ulrik.is>
  */
-@Plugin( menu = { @Menu( label = "Plugins" ),
-        @Menu( label = "SciView Tutorial" ),
-        @Menu( label = "Mesh Overlay" ) }, description = "Demos overlaying meshes and volumes", headless = false, type = Command.class )
+@Plugin( menuPath = "Plugins>SciView Tutorial>Mesh Overlay", description = "Demos overlaying meshes and volumes", headless = false, type = Command.class )
 public class OverlayPlugin< T extends RealType< T > & NativeType< T >> implements Command {
 
   // the following parameters automatically connect the services we need
@@ -60,8 +58,8 @@ public class OverlayPlugin< T extends RealType< T > & NativeType< T >> implement
 
     try {
       // let's try to get a reference to the GameOfLife3D demo
-      CommandInfo cmdInfo = cmds.getCommand(sc.iview.commands.demo.GameOfLife3D.class);
-      GameOfLife3D gol = (GameOfLife3D)cmdInfo.createInstance();
+      final CommandInfo cmdInfo = cmds.getCommand(sc.iview.commands.demo.GameOfLife3D.class);
+      final GameOfLife3D gol = (GameOfLife3D)cmdInfo.createInstance();
 
       // and run that demo programmatically. we need to pass it a reference to
       // our SciView instance, and hand over the current context
@@ -72,16 +70,16 @@ public class OverlayPlugin< T extends RealType< T > & NativeType< T >> implement
       int i = 0;
       while(i < 20) {
         // first, we threshold the image
-        Img<BitType> bitImg = (Img<BitType>) ops.threshold().apply(gol.getImg(), new UnsignedByteType(128));
+        final Img<BitType> bitImg = (Img<BitType>) ops.threshold().apply(gol.getImg(), new UnsignedByteType(128));
         // and then create a mesh from the binary image, via the marching cubes algorithm
-        Mesh mesh = ops.geom().marchingCubes(bitImg);
+        final Mesh mesh = ops.geom().marchingCubes(bitImg);
         // finally, we add the meshed volume to our scene
-        Node n = sciView.addMesh(mesh);
+        final Node n = sciView.addMesh(mesh);
 
         // sleep for a bit so that the changes are not too fast
         try {
           Thread.sleep(5000);
-        } catch (InterruptedException e) {
+        } catch (final InterruptedException e) {
           e.printStackTrace();
         }
 
@@ -92,7 +90,7 @@ public class OverlayPlugin< T extends RealType< T > & NativeType< T >> implement
         i++;
       }
 
-    } catch (InstantiableException e) {
+    } catch (final InstantiableException e) {
       e.printStackTrace();
     }
   }
