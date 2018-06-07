@@ -1,5 +1,11 @@
 target/
+# IntelliJ
 .idea/
 *.iml
 *.ipr
+# Vim
 .*.swp
+# Eclipse
+.classpath
+.project
+.settings/
