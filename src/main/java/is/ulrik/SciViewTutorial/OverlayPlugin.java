@@ -1,13 +1,5 @@
 package is.ulrik.SciViewTutorial;
 
-import org.scijava.InstantiableException;
-import org.scijava.command.Command;
-import org.scijava.command.CommandInfo;
-import org.scijava.command.CommandService;
-import org.scijava.plugin.Parameter;
-import org.scijava.plugin.Plugin;
-import org.scijava.ui.UIService;
-
 import cleargl.GLVector;
 import graphics.scenery.Node;
 import net.imagej.mesh.Mesh;
@@ -17,6 +9,13 @@ import net.imglib2.type.NativeType;
 import net.imglib2.type.logic.BitType;
 import net.imglib2.type.numeric.RealType;
 import net.imglib2.type.numeric.integer.UnsignedByteType;
+import org.scijava.InstantiableException;
+import org.scijava.command.Command;
+import org.scijava.command.CommandInfo;
+import org.scijava.command.CommandService;
+import org.scijava.plugin.Parameter;
+import org.scijava.plugin.Plugin;
+import org.scijava.ui.UIService;
 import sc.iview.SciView;
 import sc.iview.commands.demo.GameOfLife3D;
 

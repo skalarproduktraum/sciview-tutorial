@@ -1,12 +1,5 @@
 package is.ulrik.SciViewTutorial;
 
-import org.scijava.Context;
-import org.scijava.command.Command;
-import org.scijava.plugin.Parameter;
-import org.scijava.plugin.Plugin;
-import org.scijava.service.SciJavaService;
-import org.scijava.ui.UIService;
-
 import cleargl.GLVector;
 import graphics.scenery.Node;
 import io.scif.SCIFIOService;
@@ -15,6 +8,12 @@ import net.imagej.ImgPlus;
 import net.imagej.display.DatasetView;
 import net.imglib2.type.NativeType;
 import net.imglib2.type.numeric.RealType;
+import org.scijava.Context;
+import org.scijava.command.Command;
+import org.scijava.plugin.Parameter;
+import org.scijava.plugin.Plugin;
+import org.scijava.service.SciJavaService;
+import org.scijava.ui.UIService;
 import sc.iview.SciView;
 import sc.iview.SciViewService;
 
