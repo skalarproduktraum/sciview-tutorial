@@ -37,6 +37,10 @@
             <archive>http://forum.imagej.net/</archive>
         </mailingList>
     </mailingLists>
+    
+    <properties>
+		<enforcer.skip>true</enforcer.skip>
+	</properties>
 
     <developers>
         <developer>
