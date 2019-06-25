@@ -2,6 +2,7 @@ package is.ulrik.SciViewTutorial;
 
 import cleargl.GLVector;
 import graphics.scenery.Node;
+import graphics.scenery.volumes.TransferFunction;
 import net.imagej.mesh.Mesh;
 import net.imagej.ops.OpService;
 import net.imglib2.img.Img;
@@ -80,8 +81,10 @@ public class OverlayPlugin< T extends RealType< T > & NativeType< T >> implement
         final Node n = sciView.addMesh(mesh);
         n.setName("Marching Cubes of Timestep " + i);
         n.setScale(new GLVector(0.01f, 0.01f, 0.01f));
-        n.setPosition(new GLVector(0.0f, 0.5f, 0.5f));
+        n.setPosition(new GLVector(-0.32f, 0.68f, -0.32f));
         System.out.println("Thresholded timestep " + i);
+
+        gol.getVolume().setTransferFunction(TransferFunction.ramp(0.2f, 0.3f));
 
         // sleep for a bit so that the changes are not too fast
         try {
