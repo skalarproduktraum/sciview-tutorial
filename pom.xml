@@ -39,7 +39,7 @@
     </mailingLists>
 
     <properties>
-        <scenery.version>6da1eb33</scenery.version>
+        <scenery.version>9d4d34d3</scenery.version>
         <cleargl.version>2.2.6</cleargl.version>
     </properties>
 
@@ -79,7 +79,7 @@
         <dependency>
             <groupId>sc.iview</groupId>
             <artifactId>sciview</artifactId>
-            <version>51a9636</version>
+            <version>faa6428</version>
         </dependency>
 
         <!-- SciJava dependencies -->
