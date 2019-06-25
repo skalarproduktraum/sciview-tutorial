@@ -49,11 +49,15 @@ public class OverlayPlugin< T extends RealType< T > & NativeType< T >> implement
     if( !ui.isVisible() ) ui.showUI();
 
     // camera setup
-    sciView.getCamera().setPosition( new GLVector( 10.0f, 0.0f, 15.0f ) );
+    sciView.getCamera().setPosition( new GLVector( 0.0f, 1.0f, 1.0f ) );
     sciView.getCamera().setTargeted( true );
     sciView.getCamera().setTarget( new GLVector( 0, 0, 0 ) );
-    sciView.getCamera().setDirty( true );
-    sciView.getCamera().setNeedsUpdate( true );
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
 
     try {
       // let's try to get a reference to the GameOfLife3D demo
@@ -69,11 +73,15 @@ public class OverlayPlugin< T extends RealType< T > & NativeType< T >> implement
       int i = 0;
       while(i < 20) {
         // first, we threshold the image
-        final Img<BitType> bitImg = (Img<BitType>) ops.threshold().apply(gol.getImg(), new UnsignedByteType(128));
+        final Img<BitType> bitImg = (Img<BitType>) ops.threshold().apply(gol.getImg(), new UnsignedByteType(64));
         // and then create a mesh from the binary image, via the marching cubes algorithm
         final Mesh mesh = ops.geom().marchingCubes(bitImg);
         // finally, we add the meshed volume to our scene
         final Node n = sciView.addMesh(mesh);
+        n.setName("Marching Cubes of Timestep " + i);
+        n.setScale(new GLVector(0.01f, 0.01f, 0.01f));
+        n.setPosition(new GLVector(0.0f, 0.5f, 0.5f));
+        System.out.println("Thresholded timestep " + i);
 
         // sleep for a bit so that the changes are not too fast
         try {

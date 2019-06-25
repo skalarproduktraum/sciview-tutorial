@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.scijava</groupId>
         <artifactId>pom-scijava</artifactId>
-        <version>22.3.0</version>
+        <version>26.0.0</version>
         <relativePath />
     </parent>
 
@@ -38,6 +38,11 @@
         </mailingList>
     </mailingLists>
 
+    <properties>
+        <scenery.version>6da1eb33</scenery.version>
+        <cleargl.version>2.2.6</cleargl.version>
+    </properties>
+
     <developers>
         <developer>
             <id>skalarproduktraum</id>
@@ -63,29 +68,18 @@
 		</contributor>
     </contributors>
 
-    <repositories>
-        <repository>
-            <id>imagej.public</id>
-            <name>ImageJ</name>
-            <url>https://maven.imagej.net/content/groups/public</url>
-        </repository>
-        <repository>
-            <id>bintray-CoreMem</id>
-            <name>bintray</name>
-            <url>https://dl.bintray.com/clearcontrol/ClearControl</url>
-        </repository>
-        <repository>
-            <id>bintray-clearvolume-ClearVolume</id>
-            <name>bintray</name>
-            <url>https://dl.bintray.com/clearvolume/ClearVolume</url>
-        </repository>
-    </repositories>
-
     <dependencies>
+        <!--
+        This is a jitpack.io dependency: with jitpack you can directly depend on specific commits
+        in a Github repository. For the scenerygraphics organisation, we made some adjustments
+        (see https://jitpack.io/docs/#custom-domain-name), otherwise you would use com.github.username as groupId,
+        and the repository name as artifactId. That stuff is better than depending on SNAPSHOT builds, because
+        the builds stay reproducible, while SNAPSHOTs can change arbitrarily and/or be deleted.
+        -->
         <dependency>
             <groupId>sc.iview</groupId>
             <artifactId>sciview</artifactId>
-            <version>0.1.2-SNAPSHOT</version>
+            <version>51a9636</version>
         </dependency>
 
         <!-- SciJava dependencies -->
@@ -143,12 +137,6 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>net.imagej</groupId>
-            <artifactId>imagej-ui-swing</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <scope>runtime</scope>
@@ -162,5 +150,28 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>imagej.public</id>
+            <name>ImageJ</name>
+            <url>https://maven.imagej.net/content/groups/public</url>
+        </repository>
+        <repository>
+            <id>bintray-CoreMem</id>
+            <name>bintray</name>
+            <url>https://dl.bintray.com/clearcontrol/ClearControl</url>
+        </repository>
+        <repository>
+            <id>bintray-clearvolume-ClearVolume</id>
+            <name>bintray</name>
+            <url>https://dl.bintray.com/clearvolume/ClearVolume</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <snapshots><enabled>false</enabled></snapshots>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 
 </project>
